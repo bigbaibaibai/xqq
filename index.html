@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="zh-cn" />
+    <title>输入框</title>
+</head>
+<body>
+<form>
+    <textarea id="input" type="text" style="width: 500px;height: 200px" placeholder="请输入你的url"></textarea>
+</form>
+<br>
+<button onclick="btn()">缩短</button>
+<br>
+<br>
+<textarea id="html" style="width: 500px;height: 200px"></textarea>
+<script>
+    var x=  document.getElementById("input")//获取输入框元素
+    var y=  document.getElementById("html") //获取id为html的元素
+    function btn(){
+
+        var index = x.value.indexOf("?");
+        var str = x.value.substr(0,index);
+        var paramByUrl = getParamByUrl(x.value);
+        var qaq = str+"? ut_sk="+paramByUrl['ut_sk']+"&topicId="+paramByUrl["topicId"]
+
+        console.log(qaq)
+        y.innerHTML = qaq; //将输入框的值赋给div标签
+    }
+
+    function getParamByUrl(url) {
+        var theRequest = new Object();
+        var index = url.indexOf("?");
+        if (index != -1) {
+            var str = url.substr(index + 1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+
+
+</script>
+</body>
+</html>
